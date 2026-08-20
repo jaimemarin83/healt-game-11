@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>HEALTH GAME 11 | Desafío Vida Activa</title>
+<style>
+:root{--bg:#07152b;--panel:#0d2140;--panel2:#102b50;--cyan:#27e6ff;--green:#56f39a;--yellow:#ffd84d;--pink:#ff4f9a;--text:#f5fbff;--muted:#a9bdd3;--danger:#ff6b7a;--shadow:0 18px 50px #0007}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 10% 10%,#123d67 0,transparent 30%),radial-gradient(circle at 90% 20%,#3a1255 0,transparent 28%),linear-gradient(135deg,#061225,#081d37 55%,#061225);min-height:100vh}
+button,input,textarea{font:inherit}button{cursor:pointer;border:0}.hidden{display:none!important}
+#app{min-height:100vh}.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:13px 4vw;background:#06152beF;border-bottom:1px solid #ffffff16;backdrop-filter:blur(14px)}
+.brand{font-weight:900;letter-spacing:.08em}.brand span{color:var(--cyan)}.stats{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}.chip{padding:8px 12px;border-radius:999px;background:#ffffff0b;border:1px solid #ffffff14;color:var(--muted);font-size:.85rem}.chip b{color:white}.screen{width:min(1120px,92%);margin:0 auto;padding:45px 0}.hero{min-height:calc(100vh - 72px);display:grid;place-items:center}.hero-card,.panel{background:linear-gradient(145deg,#0c2444E8,#091a32E8);border:1px solid #ffffff18;box-shadow:var(--shadow);border-radius:28px}.hero-card{width:min(900px,100%);padding:clamp(28px,6vw,65px);text-align:center;position:relative;overflow:hidden}.hero-card:before{content:"";position:absolute;width:280px;height:280px;border-radius:50%;background:#27e6ff22;filter:blur(4px);top:-120px;right:-80px}.kicker{color:var(--green);font-weight:800;letter-spacing:.18em;text-transform:uppercase;font-size:.8rem}.logo{font-size:clamp(2.4rem,8vw,6rem);line-height:.9;margin:18px 0 12px;font-weight:1000;letter-spacing:-.05em}.logo span{color:var(--cyan);text-shadow:0 0 30px #27e6ff66}.subtitle{font-size:clamp(1rem,2vw,1.25rem);color:var(--muted);max-width:650px;margin:0 auto 30px}.input{width:min(460px,100%);padding:15px 18px;background:#06152b;border:1px solid #ffffff22;color:white;border-radius:14px;outline:none}.input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #27e6ff20}.btn{padding:13px 18px;border-radius:14px;font-weight:900;color:#061225;background:linear-gradient(135deg,var(--cyan),#7df7ff);box-shadow:0 8px 25px #27e6ff22;transition:.2s}.btn:hover{transform:translateY(-2px)}.btn.secondary{background:#ffffff0d;color:white;border:1px solid #ffffff18;box-shadow:none}.btn.green{background:linear-gradient(135deg,var(--green),#b4ff75)}.btn.yellow{background:linear-gradient(135deg,var(--yellow),#ffad4d)}.btn.pink{background:linear-gradient(135deg,var(--pink),#ff8cc0)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px}
+.dashboard{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}.panel{padding:24px}.panel h2,.panel h3{margin-top:0}.mission-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.mission{padding:18px;border-radius:18px;background:#ffffff07;border:1px solid #ffffff12;display:flex;gap:14px;align-items:center;cursor:pointer;transition:.2s}.mission:hover:not(.locked){transform:translateY(-2px);border-color:#27e6ff66}.mission.locked{opacity:.42;cursor:not-allowed}.mission.done{border-color:#56f39a66;background:#56f39a0d}.icon{font-size:2rem}.progress{height:12px;background:#ffffff0d;border-radius:99px;overflow:hidden;margin:12px 0}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--green));border-radius:99px;transition:.5s}.small{font-size:.86rem;color:var(--muted)}.score-big{font-size:2.6rem;font-weight:1000;color:var(--cyan)}.badges{display:flex;flex-wrap:wrap;gap:9px}.badge{padding:10px 12px;border-radius:13px;background:#ffffff08;border:1px solid #ffffff12}.badge.lock{opacity:.35}.learn{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.learn-card{padding:18px;border-radius:18px;background:#071a31;border:1px solid #ffffff12}.quiz-wrap{max-width:900px;margin:auto}.question-meta{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:.9rem}.question{font-size:clamp(1.25rem,3vw,2rem);line-height:1.3;margin:20px 0}.options{display:grid;gap:12px}.option{text-align:left;padding:16px;border-radius:16px;color:white;background:#ffffff08;border:1px solid #ffffff18;transition:.2s}.option:hover{border-color:#27e6ff88;background:#27e6ff0c}.option.correct{border-color:var(--green);background:#56f39a14}.option.wrong{border-color:var(--danger);background:#ff6b7a12}.feedback{margin-top:16px;padding:15px;border-radius:16px;background:#ffffff08;border-left:4px solid var(--cyan);line-height:1.5}.feedback.good{border-color:var(--green)}.feedback.warn{border-color:var(--yellow)}.tip{margin-top:12px;padding:14px;border-radius:14px;background:#ffd84d0d;border:1px solid #ffd84d35;color:#ffeaa0}.level-title{display:flex;align-items:center;gap:12px}.level-title .num{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg,var(--pink),#8d55ff);font-weight:1000}.result{text-align:center}.result .percent{font-size:5rem;font-weight:1000;color:var(--green);line-height:1}.reflection{width:100%;min-height:120px;resize:vertical;padding:15px;border-radius:14px;background:#06152b;border:1px solid #ffffff20;color:white;outline:none}.toast{position:fixed;right:18px;bottom:18px;z-index:50;padding:14px 17px;border-radius:15px;background:#0c2342;border:1px solid #ffffff1f;box-shadow:var(--shadow);transform:translateY(140%);transition:.3s}.toast.show{transform:translateY(0)}.confetti{position:fixed;inset:0;pointer-events:none;z-index:45;overflow:hidden}.confetti i{position:absolute;width:8px;height:14px;animation:fall 1.6s linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}@media(max-width:800px){.dashboard{grid-template-columns:1fr}.mission-grid,.learn{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}.stats{justify-content:flex-start}.screen{padding:28px 0}.hero{min-height:auto;padding:25px 0}}
+</style>
+</head>
+<body>
+<div id="app">
+<header class="topbar hidden" id="topbar">
+<div class="brand">⚡ <span>HEALTH</span> GAME 11</div>
+<div class="stats">
+<div class="chip">👤 <b id="playerName">Jugador</b></div>
+<div class="chip">⭐ <b id="score">0</b> pts</div>
+<div class="chip">🎯 <b id="levelLabel">1/6</b></div>
+<div class="chip">🏅 <b id="badgeCount">0</b></div>
+</div>
+</header>
+
+<section class="screen hero" id="startScreen">
+<div class="hero-card">
+<div class="kicker">Educación Física · Grado 11°</div>
+<div class="logo">HEALTH <span>GAME</span> 11</div>
+<h2>DESAFÍO: VIDA ACTIVA</h2>
+<p class="subtitle">Convierte tus conocimientos sobre actividad física, salud y hábitos saludables en puntos, insignias y niveles. ¿Aceptas el reto?</p>
+<input id="nameInput" class="input" maxlength="30" placeholder="Escribe tu nombre para comenzar">
+<div class="actions">
+<button class="btn" onclick="startGame()">▶ INICIAR DESAFÍO</button>
+<button class="btn secondary" onclick="toggleSound()" id="soundStart">🔊 Sonido: ON</button>
+</div>
+<p class="small">Experiencia educativa interactiva · Patrón GAMEPLAY</p>
+</div>
+</section>
+
+<main class="screen hidden" id="gameScreen">
+<div id="dashboardView">
+<div class="dashboard">
+<div class="panel">
+<h2>🎯 Centro de Misiones</h2>
+<p class="small">Supera cada misión para desbloquear la siguiente.</p>
+<div class="progress"><div class="bar" id="mainBar"></div></div>
+<div class="small" id="progressText">0% completado</div>
+<div class="mission-grid" id="missionGrid"></div>
+</div>
+<div class="panel">
+<h3>📊 Tu rendimiento</h3>
+<div class="score-big" id="scoreSide">0</div>
+<p class="small">puntos acumulados</p>
+<hr style="border-color:#ffffff12">
+<h3>🏆 Insignias</h3>
+<div class="badges" id="badges"></div>
+</div>
+</div>
+<div class="panel" style="margin-top:18px">
+<h2>📚 Cápsulas de aprendizaje</h2>
+<div class="learn">
+<div class="learn-card">🏃 <b>Actividad física</b><p class="small">Movimiento corporal que aumenta el gasto energético. Contribuye al bienestar cardiovascular, muscular y emocional.</p></div>
+<div class="learn-card">🥗 <b>Hábitos saludables</b><p class="small">Incluyen alimentación equilibrada, hidratación, descanso, higiene, movimiento y manejo saludable del estrés.</p></div>
+<div class="learn-card">🧠 <b>Bienestar integral</b><p class="small">La salud no es solo física: también incluye dimensiones mental, emocional y social.</p></div>
+<div class="learn-card">📵 <b>Sedentarismo</b><p class="small">Pasar mucho tiempo con poca actividad física puede afectar el bienestar. Alternar movimiento y pausas activas ayuda a reducirlo.</p></div>
+</div>
+</div>
+</div>
+
+<div id="quizView" class="hidden">
+<div class="panel quiz-wrap">
+<div class="question-meta"><span id="missionName"></span><span id="qCount"></span></div>
+<div class="progress"><div class="bar" id="quizBar"></div></div>
+<div class="level-title"><div class="num" id="levelNum">1</div><div><h2 id="levelTitle" style="margin:0"></h2><div class="small" id="levelDesc"></div></div></div>
+<div class="question" id="question"></div>
+<div class="options" id="options"></div>
+<div class="actions" style="justify-content:flex-start">
+<button class="btn yellow" id="tipBtn" onclick="showTip()">💡 VER PISTA</button>
+<button class="btn secondary" id="nextBtn" onclick="nextQuestion()" disabled>CONTINUAR ➜</button>
+<button class="btn secondary" onclick="goDashboard()">← Misiones</button>
+</div>
+<div id="tipBox" class="tip hidden"></div>
+<div id="feedback" class="feedback hidden"></div>
+</div>
+</div>
+
+<div id="resultView" class="hidden">
+<div class="panel result">
+<div class="kicker">Misión completada</div>
+<h1>🏆 ¡DESAFÍO COMPLETADO!</h1>
+<p id="resultPlayer"></p>
+<div class="percent" id="resultPercent">0%</div>
+<p class="small">desempeño global</p>
+<div class="dashboard" style="text-align:left;margin-top:20px">
+<div class="panel" style="box-shadow:none"><h3>📈 Resultados</h3><p>⭐ Puntuación: <b id="resultScore"></b></p><p>✅ Respuestas correctas: <b id="resultCorrect"></b></p><p>🔁 Intentos: <b id="resultAttempts"></b></p><p>🎯 Nivel: <b>Maestro de la Vida Saludable</b></p></div>
+<div class="panel" style="box-shadow:none"><h3>🏅 Insignia</h3><p id="resultBadge" style="font-size:1.3rem"></p><p id="resultMessage" class="small"></p></div>
+</div>
+<div class="panel" style="text-align:left;margin-top:18px;box-shadow:none">
+<h3>🧭 Recomendación</h3><p id="recommendation"></p>
+<h3>💭 Reflexión final</h3><p>¿Qué hábito saludable estás dispuesto a fortalecer en tu vida cotidiana?</p>
+<textarea id="reflection" class="reflection" placeholder="Escribe aquí tu compromiso o reflexión..."></textarea>
+<div class="actions" style="justify-content:flex-start">
+<button class="btn green" onclick="saveReflection()">💾 GUARDAR MI REFLEXIÓN</button>
+<button class="btn secondary" onclick="restartGame()">↻ REINICIAR</button>
+</div>
+<p id="savedMsg" class="small"></p>
+</div>
+</div>
+</div>
+</main>
+<div class="toast" id="toast"></div><div class="confetti" id="confetti"></div>
+</div>
+
+<script>
+const levels=[
+{title:"Activa tu conocimiento",desc:"Educación Física, salud y conceptos fundamentales.",icon:"🏃",qs:[
+{q:"¿Cuál describe mejor el propósito de la Educación Física en relación con la salud?",o:["Solo mejorar el rendimiento competitivo","Favorecer el desarrollo integral y hábitos activos que contribuyan al bienestar","Aprender únicamente deportes reglamentados","Evaluar quién tiene mayor capacidad física"],a:1,t:"La Educación Física busca el desarrollo integral y la construcción de hábitos saludables.",tip:"Piensa en una educación que cuide el cuerpo, la mente y las relaciones sociales."},
+{q:"¿Cuál es una diferencia clave entre actividad física y ejercicio?",o:["Son exactamente lo mismo","La actividad física incluye movimientos cotidianos; el ejercicio es planificado y estructurado","El ejercicio nunca produce beneficios","La actividad física solo ocurre en un gimnasio"],a:1,t:"El ejercicio es una forma planificada de actividad física, mientras que la actividad física también incluye movimientos cotidianos.",tip:"Recuerda que caminar, desplazarse o realizar tareas también implican movimiento."},
+{q:"¿Cuál opción reúne beneficios asociados con la actividad física regular?",o:["Únicamente cambios estéticos","Beneficios físicos, mentales, emocionales y sociales","Solo mayor cansancio","Únicamente mejores resultados académicos"],a:1,t:"Una vida activa puede favorecer múltiples dimensiones del bienestar.",tip:"Busca la alternativa que contemple el bienestar de manera integral."}
+]},
+{title:"Misión Vida Activa",desc:"Movimiento, condición física y bienestar.",icon:"⚡",qs:[
+{q:"Un estudiante quiere reducir el tiempo sedentario durante su jornada. ¿Qué estrategia es más adecuada?",o:["Permanecer sentado más tiempo para ahorrar energía","Incorporar pausas activas y momentos de movimiento durante el día","Eliminar todo descanso","Hacer actividad física intensa sin planificación"],a:1,t:"Las pausas activas y el movimiento frecuente ayudan a interrumpir periodos prolongados de inactividad.",tip:"No se trata de eliminar el descanso, sino de alternarlo con movimiento."},
+{q:"¿Qué afirmación sobre la actividad física y la salud mental es más apropiada?",o:["No existe relación","Puede contribuir al bienestar emocional y ayudar a manejar el estrés","Solo beneficia a deportistas profesionales","Siempre elimina cualquier problema emocional"],a:1,t:"La actividad física puede favorecer el bienestar emocional, aunque no sustituye el apoyo profesional cuando se necesita.",tip:"Busca una respuesta equilibrada, sin prometer efectos absolutos."},
+{q:"¿Cuál decisión representa una práctica responsable al comenzar un programa de ejercicio?",o:["Ignorar las señales del cuerpo","Aumentar la exigencia sin descanso","Considerar el nivel personal, progresar gradualmente y respetar el descanso","Copiar exactamente la rutina de otra persona"],a:2,t:"La progresión gradual, la recuperación y la adaptación individual favorecen una práctica segura.",tip:"Piensa en progresión, recuperación y características personales."}
+]},
+{title:"Reto Estilo Saludable",desc:"Alimentación, hidratación, descanso e higiene.",icon:"🥗",qs:[
+{q:"¿Cuál combinación refleja mejor un estilo de vida saludable?",o:["Poca hidratación, poco sueño y muchas horas sentado","Alimentación equilibrada, hidratación, descanso y actividad física","Eliminar grupos completos de alimentos sin orientación","Dormir poco para tener más tiempo libre"],a:1,t:"Los hábitos saludables se construyen de manera integral y sostenible.",tip:"Busca equilibrio entre alimentación, hidratación, descanso y movimiento."},
+{q:"Durante una jornada deportiva, ¿por qué es importante cuidar la hidratación?",o:["Porque reemplaza todas las comidas","Porque ayuda a mantener funciones corporales normales y el rendimiento","Porque evita la necesidad de descansar","Porque permite hacer ejercicio indefinidamente"],a:1,t:"Una hidratación adecuada acompaña las necesidades del organismo, especialmente durante actividad física.",tip:"La hidratación apoya funciones del organismo; no sustituye alimentación ni descanso."},
+{q:"¿Qué función cumple el descanso dentro de un estilo de vida saludable?",o:["Es innecesario si se hace ejercicio","Favorece la recuperación física y el bienestar mental","Solo sirve para evitar las clases","Reduce siempre la condición física"],a:1,t:"El descanso es una parte esencial de la recuperación y del bienestar.",tip:"Piensa qué necesita el cuerpo después de una jornada de actividad."}
+]},
+{title:"Alerta Sedentarismo",desc:"Analiza rutinas y toma decisiones saludables.",icon:"📵",qs:[
+{q:"Una estudiante pasa gran parte de su tiempo libre frente a pantallas. ¿Qué cambio sería más adecuado?",o:["Eliminar todo ocio","Organizar pausas activas y aumentar progresivamente el movimiento cotidiano","Dormir menos para hacer ejercicio","Realizar una sesión extrema una vez al mes"],a:1,t:"Pequeños cambios sostenibles, pausas activas y más movimiento cotidiano son estrategias útiles.",tip:"Busca una alternativa realista y sostenible, no extrema."},
+{q:"Un grupo de amigos quiere mejorar su bienestar. ¿Cuál decisión demuestra pensamiento crítico?",o:["Seguir cualquier reto viral sin verificarlo","Elegir hábitos realistas, informarse y adaptar las actividades a sus necesidades","Compararse constantemente con otros","Entrenar sin considerar recuperación"],a:1,t:"Un estilo de vida saludable requiere decisiones informadas y adaptadas a cada persona.",tip:"La mejor decisión considera información, contexto y sostenibilidad."},
+{q:"¿Cuál situación refleja un enfoque integral de salud?",o:["Solo preocuparse por la condición física","Combinar movimiento, alimentación, descanso, salud emocional y relaciones sociales","Evitar toda actividad recreativa","Medir la salud únicamente por el peso"],a:1,t:"La salud integral contempla dimensiones físicas, mentales, emocionales y sociales.",tip:"Piensa en la salud como un conjunto de dimensiones relacionadas."}
+]},
+{title:"Desafío Integral",desc:"Aplica tus conocimientos a situaciones cotidianas.",icon:"🧠",qs:[
+{q:"Un estudiante organiza su semana con clases, estudio, actividad física, alimentación, descanso y tiempo social. ¿Qué principio está aplicando?",o:["Equilibrio de hábitos y organización del tiempo","Sedentarismo","Especialización deportiva obligatoria","Privación del descanso"],a:0,t:"Organizar diferentes dimensiones del bienestar ayuda a construir hábitos sostenibles.",tip:"Busca la opción que integre varias dimensiones de la vida."},
+{q:"¿Qué decisión muestra una actitud responsable frente al estrés?",o:["Ignorarlo siempre","Combinar actividad física, descanso, organización y apoyo social según la situación","Eliminar todo contacto social","Aumentar la carga de entrenamiento sin límites"],a:1,t:"El manejo saludable del estrés puede incluir movimiento, descanso, organización y apoyo social.",tip:"Evita soluciones extremas; piensa en varias estrategias complementarias."},
+{q:"¿Por qué es importante que los hábitos saludables sean sostenibles?",o:["Porque deben ser idénticos para todas las personas","Porque un hábito realista puede mantenerse y convertirse en parte de la vida cotidiana","Porque cuanto más extremo sea, mejor","Porque no requieren adaptación"],a:1,t:"La sostenibilidad favorece que los hábitos puedan mantenerse a largo plazo.",tip:"Piensa en lo que una persona puede mantener de forma realista."}
+]},
+{title:"Maestro de la Vida Saludable",desc:"Desafío final: analiza, decide y demuestra lo aprendido.",icon:"🏆",final:true,qs:[
+{q:"Una persona quiere mejorar su estilo de vida. ¿Cuál sería el mejor punto de partida?",o:["Cambiar todo de forma extrema en un día","Identificar hábitos actuales y elegir cambios graduales, realistas y saludables","Compararse con un atleta profesional","Eliminar el descanso"],a:1,t:"Identificar el punto de partida y establecer cambios graduales facilita la construcción de hábitos.",tip:"Un buen cambio empieza con autoconocimiento y metas realistas."},
+{q:"¿Qué relación existe entre Educación Física y calidad de vida?",o:["Ninguna","Puede aportar conocimientos y experiencias para adoptar prácticas activas y cuidar el bienestar","Solo sirve para competir","Solo influye durante la adolescencia"],a:1,t:"La Educación Física puede ayudar a desarrollar conocimientos, habilidades y actitudes relacionadas con una vida activa.",tip:"Piensa en aprendizajes que pueden mantenerse más allá de la clase."},
+{q:"¿Cuál conducta ayuda a prevenir periodos prolongados de inactividad?",o:["Intercalar movimiento y pausas activas durante el día","Permanecer sentado durante horas","Evitar caminar","Reducir todas las actividades cotidianas"],a:0,t:"Interrumpir periodos prolongados sentado con movimiento es una estrategia saludable.",tip:"La clave está en interrumpir el tiempo prolongado de inactividad."},
+{q:"¿Cuál afirmación sobre alimentación saludable es más adecuada?",o:["Existe una dieta perfecta igual para todos","Una alimentación equilibrada y variada debe considerar necesidades individuales","Hay que eliminar todos los carbohidratos","Comer lo menos posible siempre es mejor"],a:1,t:"La alimentación saludable se basa en variedad, equilibrio y adecuación a las necesidades individuales.",tip:"Evita reglas extremas y absolutas."},
+{q:"¿Qué papel cumple el sueño en el bienestar?",o:["No influye en la salud","Contribuye a la recuperación y al funcionamiento adecuado del organismo","Solo importa a deportistas","Debe sustituirse por ejercicio"],a:1,t:"Dormir adecuadamente favorece la recuperación y el funcionamiento físico y mental.",tip:"Piensa en qué ocurre con el cuerpo y la mente durante la recuperación."},
+{q:"Una persona nota que una rutina de ejercicio le genera dolor persistente. ¿Qué conducta es más responsable?",o:["Aumentar la intensidad","Ignorar el dolor","Detener o ajustar la actividad y buscar orientación adecuada si es necesario","Competir para demostrar resistencia"],a:2,t:"Escuchar las señales del cuerpo y buscar orientación cuando corresponde es una conducta responsable.",tip:"La salud requiere reconocer límites y señales del organismo."},
+{q:"¿Cuál opción representa mejor el bienestar integral?",o:["Solo fuerza física","Equilibrio entre dimensiones físicas, mentales, emocionales y sociales","Solo apariencia corporal","Solo rendimiento deportivo"],a:1,t:"El bienestar integral comprende múltiples dimensiones, no una sola característica.",tip:"Busca la opción que incluya varias dimensiones."},
+{q:"¿Qué estrategia ayuda a convertir una intención saludable en un hábito?",o:["Esperar motivación perfecta","Establecer una meta concreta, realista y repetible","Cambiar diariamente sin planificación","Compararse con otras personas"],a:1,t:"Las metas concretas y realistas facilitan la repetición y consolidación de conductas.",tip:"Piensa en una acción concreta que pueda repetirse."},
+{q:"¿Cuál es una característica de una decisión saludable basada en pensamiento crítico?",o:["Seguir cualquier tendencia","Evaluar información, contexto, beneficios y posibles riesgos","Elegir siempre la opción más intensa","Copiar una rutina sin adaptarla"],a:1,t:"El pensamiento crítico implica analizar información y contexto antes de decidir.",tip:"Analizar antes de actuar es clave."},
+{q:"Después de completar el OVA, ¿cuál sería el propósito principal de lo aprendido?",o:["Memorizar respuestas","Aplicar conocimientos para tomar decisiones que favorezcan el bienestar cotidiano","Competir con otros estudiantes","Evitar toda actividad física intensa"],a:1,t:"El aprendizaje cobra sentido cuando permite tomar decisiones informadas y aplicarlas en la vida cotidiana.",tip:"El objetivo final es transferir lo aprendido a la vida real."}
+]}];
+
+let state={name:"",score:0,level:0,q:0,correct:0,attempts:0,firstTry:true,hints:0,done:[],badges:[],sound:true,started:false};
+let audioCtx=null;
+
+const badgeDefs=[
+["🏃","Explorador Activo"],["⚡","Guardián del Movimiento"],["💧","Guardián de la Hidratación"],["🥗","Experto en Hábitos Saludables"],["🧠","Mente Saludable"],["🏆","Maestro del Bienestar"]
+];
+
+function initAudio(){if(!state.sound)return;if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();}
+function tone(freq,dur=.12,type="sine",vol=.035,delay=0){if(!state.sound)return;initAudio();if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.value=freq;g.gain.setValueAtTime(0,audioCtx.currentTime+delay);g.gain.linearRampToValueAtTime(vol,audioCtx.currentTime+delay+.02);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+delay+dur);o.connect(g);g.connect(audioCtx.destination);o.start(audioCtx.currentTime+delay);o.stop(audioCtx.currentTime+delay+dur+.02)}
+function soundGood(){tone(523,.1);tone(659,.12,"sine",.04,.08);tone(784,.16,"sine",.04,.17)}
+function soundBad(){tone(180,.18,"sawtooth",.025);tone(130,.18,"sawtooth",.02,.08)}
+function toggleSound(){state.sound=!state.sound;document.querySelectorAll("#soundStart").forEach(b=>b.textContent=state.sound?"🔊 Sonido: ON":"🔇 Sonido: OFF");if(state.sound)tone(660)}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove("show"),2600)}
+function confetti(){const c=document.getElementById("confetti");c.innerHTML="";for(let i=0;i<90;i++){const e=document.createElement("i");e.style.left=Math.random()*100+"%";e.style.top="-20px";e.style.background=["#27e6ff","#56f39a","#ffd84d","#ff4f9a","#ffffff"][Math.floor(Math.random()*5)];e.style.transform=`rotate(${Math.random()*360}deg)`;e.style.animationDelay=Math.random()*.5+"s";c.appendChild(e)}setTimeout(()=>c.innerHTML="",2200)}
+function startGame(){const n=document.getElementById("nameInput").value.trim();if(!n){toast("Escribe tu nombre para comenzar.");tone(180,.15,"sawtooth");return}state.name=n;state.started=true;initAudio();document.getElementById("startScreen").classList.add("hidden");document.getElementById("topbar").classList.remove("hidden");document.getElementById("gameScreen").classList.remove("hidden");renderDashboard();tone(392,.12);tone(523,.15,"sine",.04,.1);toast("¡Bienvenido/a, "+n+"! Tu misión comienza.");}
+function renderDashboard(){document.getElementById("dashboardView").classList.remove("hidden");document.getElementById("quizView").classList.add("hidden");document.getElementById("resultView").classList.add("hidden");document.getElementById("playerName").textContent=state.name;document.getElementById("score").textContent=state.score;document.getElementById("scoreSide").textContent=state.score;document.getElementById("levelLabel").textContent=Math.min(state.level+1,6)+"/6";document.getElementById("badgeCount").textContent=state.badges.length;const pct=Math.round(state.done.length/levels.length*100);document.getElementById("mainBar").style.width=pct+"%";document.getElementById("progressText").textContent=pct+"% completado";renderMissions();renderBadges();}
+function renderMissions(){const grid=document.getElementById("missionGrid");grid.innerHTML="";levels.forEach((l,i)=>{const unlocked=i<=state.level;const done=state.done.includes(i);const d=document.createElement("div");d.className="mission "+(!unlocked?"locked ":"")+(done?"done":"");d.innerHTML=`<div class="icon">${done?"✅":unlocked?l.icon:"🔒"}</div><div><b>Nivel ${i+1}: ${l.title}</b><div class="small">${done?"Completado":unlocked?"Disponible":"Bloqueado"}</div></div>`;if(unlocked&&!done)d.onclick=()=>openLevel(i);grid.appendChild(d)})}
+function renderBadges(){const b=document.getElementById("badges");b.innerHTML="";badgeDefs.forEach((x,i)=>{const got=state.badges.includes(i);const d=document.createElement("div");d.className="badge "+(!got?"lock":"");d.textContent=(got?x[0]:"🔒")+" "+x[1];b.appendChild(d)})}
+function openLevel(i){state.level=i;state.q=0;state.firstTry=true;document.getElementById("dashboardView").classList.add("hidden");document.getElementById("quizView").classList.remove("hidden");renderQuestion();window.scrollTo({top:0,behavior:"smooth"});tone(440,.1);tone(660,.1,"sine",.035,.1)}
+function renderQuestion(){const l=levels[state.level],q=l.qs[state.q];document.getElementById("missionName").textContent=`${l.icon} Misión ${state.level+1}: ${l.title}`;document.getElementById("qCount").textContent=`Pregunta ${state.q+1} de ${l.qs.length}`;document.getElementById("quizBar").style.width=((state.q)/l.qs.length*100)+"%";document.getElementById("levelNum").textContent=state.level+1;document.getElementById("levelTitle").textContent=l.title;document.getElementById("levelDesc").textContent=l.desc;document.getElementById("question").textContent=q.q;const opts=document.getElementById("options");opts.innerHTML="";q.o.forEach((txt,i)=>{const b=document.createElement("button");b.className="option";b.textContent=String.fromCharCode(65+i)+". "+txt;b.onclick=()=>answer(i,b);opts.appendChild(b)});document.getElementById("feedback").className="feedback hidden";document.getElementById("feedback").textContent="";document.getElementById("tipBox").classList.add("hidden");document.getElementById("nextBtn").disabled=true;document.getElementById("nextBtn").textContent=state.q===l.qs.length-1?"🏁 FINALIZAR MISIÓN":"CONTINUAR ➜";document.getElementById("tipBtn").disabled=false}
+function answer(i,button){const l=levels[state.level],q=l.qs[state.q],opts=[...document.querySelectorAll(".option")];if(opts.some(x=>x.disabled))return;state.attempts++;if(i===q.a){button.classList.add("correct");opts.forEach(x=>x.disabled=true);state.correct++;let pts=100;if(state.firstTry)pts+=50;state.score+=pts;state.firstTry=true;const fb=document.getElementById("feedback");fb.className="feedback good";fb.innerHTML=`<b>🎉 ¡Excelente!</b> +${pts} puntos.<br>${q.t}`;document.getElementById("nextBtn").disabled=false;document.getElementById("tipBtn").disabled=true;soundGood();toast(`+${pts} puntos · ¡Respuesta correcta!`);if(state.q===l.qs.length-1)confetti()}else{button.classList.add("wrong");state.firstTry=false;soundBad();const fb=document.getElementById("feedback");fb.className="feedback warn";fb.innerHTML="<b>💪 ¡Casi lo tienes!</b> Revisa la pista y vuelve a analizar la situación.";toast("Buen intento. Puedes corregirlo.");}}
+function showTip(){const q=levels[state.level].qs[state.q];const box=document.getElementById("tipBox");box.textContent="💡 Pista: "+q.tip;box.classList.remove("hidden");state.hints++;tone(660,.12,"triangle");}
+function nextQuestion(){const l=levels[state.level];if(state.q<l.qs.length-1){state.q++;state.firstTry=true;renderQuestion();}else{completeLevel();}}
+function completeLevel(){if(!state.done.includes(state.level))state.done.push(state.level);state.score+=200;awardBadges();if(state.level<levels.length-1){state.level++;state.q=0;state.firstTry=true;renderDashboard();toast("🎉 Nivel completado · +200 puntos");confetti();}else{state.score+=500;awardBadges();showResults();}}
+function awardBadges(){const map=[0,1,2,3,4,5];for(let i=0;i<state.done.length;i++)if(!state.badges.includes(map[i]))state.badges.push(map[i]);if(state.done.length>=levels.length&&!state.badges.includes(5))state.badges.push(5)}
+function goDashboard(){renderDashboard();window.scrollTo({top:0,behavior:"smooth"})}
+function showResults(){document.getElementById("dashboardView").classList.add("hidden");document.getElementById("quizView").classList.add("hidden");document.getElementById("resultView").classList.remove("hidden");const total=levels.reduce((s,l)=>s+l.qs.length,0),pct=Math.round(state.correct/total*100);document.getElementById("resultPlayer").textContent="Jugador/a: "+state.name;document.getElementById("resultPercent").textContent=pct+"%";document.getElementById("resultScore").textContent=state.score+" puntos";document.getElementById("resultCorrect").textContent=state.correct+" / "+total;document.getElementById("resultAttempts").textContent=state.attempts;let badge,msg;if(pct>=90){badge="🏆 Maestro del Bienestar";msg="Desempeño sobresaliente: conectas conceptos y decisiones saludables."}else if(pct>=80){badge="🌟 Experto en Hábitos Saludables";msg="Excelente desempeño. Sigue llevando lo aprendido a situaciones cotidianas."}else if(pct>=70){badge="💪 Explorador Activo";msg="Buen desempeño. Puedes fortalecer algunos conceptos y seguir avanzando."}else{badge="🚀 En entrenamiento";msg="Cada intento es una oportunidad para aprender y mejorar."}document.getElementById("resultBadge").textContent=badge;document.getElementById("resultMessage").textContent=msg;document.getElementById("recommendation").textContent=pct>=80?"Continúa fortaleciendo hábitos sostenibles: movimiento, alimentación equilibrada, hidratación, descanso y bienestar emocional.": "Repasa las cápsulas de aprendizaje y elige uno o dos hábitos realistas que puedas fortalecer progresivamente.";confetti();soundGood();window.scrollTo({top:0,behavior:"smooth"})}
+function saveReflection(){const v=document.getElementById("reflection").value.trim();if(!v){toast("Escribe una reflexión antes de guardarla.");return}localStorage.setItem("healthGameReflection_"+state.name,v);document.getElementById("savedMsg").textContent="✅ Reflexión guardada en este dispositivo.";toast("Reflexión guardada.");tone(784,.15)}
+function restartGame(){state={name:"",score:0,level:0,q:0,correct:0,attempts:0,firstTry:true,hints:0,done:[],badges:[],sound:state.sound,started:false};document.getElementById("gameScreen").classList.add("hidden");document.getElementById("topbar").classList.add("hidden");document.getElementById("resultView").classList.add("hidden");document.getElementById("startScreen").classList.remove("hidden");document.getElementById("nameInput").value="";window.scrollTo({top:0,behavior:"smooth"})}
+</script>
+</body>
+</html>
